@@ -16,7 +16,6 @@ import static io.restassured.RestAssured.given;
 
 public class GitHubRepoTests extends BaseGitHubClient {
 
-    private final List<String> createdRepos = new ArrayList<>();
 
     @DataProvider(name = "repoData")
     public Object[][] repoDataProvider() {
@@ -128,18 +127,6 @@ public class GitHubRepoTests extends BaseGitHubClient {
     }
 
 
-    @AfterClass
-    public void tearDown() {
-        for (String repoName : createdRepos) {
-            System.out.println("Очистка: удаление репозитория " + repoName);
-            given()
-                    .spec(requestSpec)
-                    .when()
-                    .delete("/repos/" + GITHUB_OWNER + "/" + repoName);
-        }
-        createdRepos.clear();
-    }
-
     @Test(priority = 7)
     public void testUnauthorizedAccess() {
         given()
@@ -166,5 +153,13 @@ public class GitHubRepoTests extends BaseGitHubClient {
                 .statusCode(422); // Ошибка: отсутствует обязательное поле
     }
 
-
+    @Test(priority = 8)
+    public void testOptionsMethod() {
+        given()
+                .spec(requestSpec)
+                .when()
+                .options("/user/repos")
+                .then()
+                .statusCode(204); // GitHub API возвращает 204 для метода OPTIONS
+    }
 }

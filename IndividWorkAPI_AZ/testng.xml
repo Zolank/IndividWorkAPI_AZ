@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="GitHub Regression Suite">
+    <test name="API Tests">
+        <classes>
+            <class name="tests.GitHubRepoTests"/>
+        </classes>
+    </test>
+</suite>
