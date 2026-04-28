@@ -16,7 +16,7 @@ import static io.restassured.RestAssured.given;
 
 public class GitHubRepoTests extends BaseGitHubClient {
 
-    private List<String> createdRepos = new ArrayList<>();
+    private final List<String> createdRepos = new ArrayList<>();
 
     @DataProvider(name = "repoData")
     public Object[][] repoDataProvider() {
